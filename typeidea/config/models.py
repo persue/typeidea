@@ -6,10 +6,10 @@ from django.template.loader import render_to_string
 class Link(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
-    STATUS_ITEMS = {
+    STATUS_ITEMS = (
         (STATUS_NORMAL, '正常'),
         (STATUS_DELETE, '删除'),
-    }
+    )
     title = models.CharField(max_length=50, verbose_name="标题")
     href = models.URLField(verbose_name="链接")
     status = models.PositiveIntegerField(default=STATUS_NORMAL,
@@ -79,7 +79,7 @@ class SideBar(models.Model):
         if self.display_type == self.DISPLAY_HTML:
             result = self.content
         elif self.display_type == self.DISPLAY_LATEST:
-            context = {'posts': Post.latest_posts()}
+            context = {'posts': Post.latest_posts(with_related=False)}
             result = render_to_string('config/blocks/sidebar_posts.html',
                                       context)
         elif self.display_type == self.DISPLAY_HOT:
