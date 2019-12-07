@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+XADMIN_TITLE = 'Typeidea 管理后台'
+XADMIN_FOOTER_TITLE = 'power by Robin@admin.com'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -33,6 +36,13 @@ INSTALLED_APPS = [
     'blog',
     'config',
     'comment',
+    'dal',
+    'dal_select2',
+    'ckeditor',
+    'ckeditor_uploader',
+    'xadmin',
+    'rest_framework',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -116,3 +126,25 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/tmp/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'themes', THEME, 'static')]
+
+# Editor
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',
+    }
+}
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "article_images"
+DEFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
+    'DEFAULT_PAGINATION_CLASS':
+    'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2,
+}

@@ -54,3 +54,11 @@ CONFIG_TOOLBAR_CONFIG = {
 }
 
 INTERNAL_IPS = ['127.0.0.1']
+
+# cache
+CACHES ={
+    'default':{
+        'BACKEND':'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION':'unique-snowflake',
+    }
+}

@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import mistune
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.functional import cached_property
 # Create your models here.
-
+import logging
+from logging.config import dictConfig
 
 class Category(models.Model):
     STATUS_NORMAL = 1
@@ -60,12 +63,16 @@ class Tag(models.Model):
     owner = models.ForeignKey(User, verbose_name="作者")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
 
-    @classmethod
-    def get_all(cls):
-        return cls.objects.all()
+    #@classmethod
+    #def get_all(cls):
+    #    return cls.objects.all()
 
     class Meta:
-        verbose_name = verbose_name_plural = "标签"
+        verbose_name = verbose_name_plural = '标签'
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
@@ -91,6 +98,7 @@ class Post(models.Model):
     tag = models.ManyToManyField(Tag, verbose_name="标签")
     owner = models.ForeignKey(User, verbose_name="作者")
     created_time = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
+    is_md = models.BooleanField(default=False, verbose_name="markdown 语法")
 
     pv = models.PositiveIntegerField(default=1)
     uv = models.PositiveIntegerField(default=1)
@@ -98,6 +106,8 @@ class Post(models.Model):
     class Meta:
         verbose_name = verbose_name_plural = "文章"
         ordering = ['id']
+    def __str__(self):
+        return self.title
 
     @staticmethod
     def get_by_tag(tag_id):
@@ -141,5 +151,8 @@ class Post(models.Model):
         return ','.join(self.tag.values_list('name',flat=True))
 
     def save(self, *args, **kwargs):
-        self.content_html = mistune.markdown(self.content)
+        if self.is_md:
+            self.content_html = mistune.markdown(self.content)
+        else:
+            self.content_html = self.content
         super().save(*args, **kwargs)
