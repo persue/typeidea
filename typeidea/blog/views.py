@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import date
 from django.core.cache import cache
 from django.db.models import Q, F

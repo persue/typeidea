@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from .base import *  # NOQA
 
 DEBUG = True
@@ -54,7 +55,7 @@ CONFIG_TOOLBAR_CONFIG = {
 }
 
 INTERNAL_IPS = ['127.0.0.1']
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files/')
 # cache
 CACHES ={
     'default':{

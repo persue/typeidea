@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import xadmin
 from xadmin.layout import Row, Fieldset, Container
 from xadmin.filters import manager

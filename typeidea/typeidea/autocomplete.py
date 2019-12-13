@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from dal import autocomplete
 from blog.models import Category, Tag
 
