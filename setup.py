@@ -31,7 +31,7 @@ setup(
         'coreapi==2.3.3',
         'hiredis==0.2.0',
         # debug
-        'django-debug-toolbar==1.9.1',
+        'django-debug-toolbar==1.11.1',
     ],
     extras_require={'ipython': ['ipython==6.2.1']},
     scripts=[
